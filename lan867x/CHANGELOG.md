@@ -12,6 +12,12 @@
 
 - ci: follow tags addeds by cz bump ([cb506442](https://github.com/kostaond/esp-eth-drivers/releases/tagcb506442))
 
+## [lan867x-v1.0.4](https://github.com/kostaond/esp-eth-drivers/releases/tag/lan867x-v1.0.4)
+
+### Features
+
+- ci: follow tags addeds by cz bump ([cb506442](https://github.com/kostaond/esp-eth-drivers/releases/tagcb506442))
+
 ## [lan867x-v1.0.3](https://github.com/kostaond/esp-eth-drivers/releases/tag/lan867x-v1.0.3)
 
 ### Features
