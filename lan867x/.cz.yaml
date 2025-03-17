@@ -1,6 +1,7 @@
 ---
 commitizen:
   bump_message: 'bump(lan867x): $current_version -> $new_version'
+  annotated-tag: true
   pre_bump_hooks: python ../tools/changelog.py lan867x
   tag_format: lan867x-v$version
   version_scheme: semver
