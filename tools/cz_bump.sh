@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ $# -eq 0 ]; then
     echo "Please specify version for cz bump, for example:"
@@ -12,6 +13,6 @@ git checkout -b bump/new_version
 # bump new version: https://commitizen-tools.github.io/commitizen/commands/bump/
 cz bump --no-verify $@
 
-git push -u -f \
+git push -u -f --follow-tags \
   -o merge_request.create \
   origin bump/new_version
