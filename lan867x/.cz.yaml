@@ -4,7 +4,7 @@ commitizen:
   post_bump_hooks: python ../tools/annotate.py lan867x
   pre_bump_hooks: python ../tools/changelog.py lan867x
   tag_format: lan867x-v$version
-  version: 1.0.3
+  version: 1.0.4
   version_files:
   - 'idf_component.yml:^version: '
   version_scheme: semver
