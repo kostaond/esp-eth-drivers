@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-# SPDX-FileCopyrightText: 2024-2025 Espressif Systems (Shanghai) CO LTD
+# SPDX-FileCopyrightText: 2025 Espressif Systems (Shanghai) CO LTD
 # SPDX-License-Identifier: Apache-2.0
 """
-Annotate tag
+Annotate release tag
 """
 import os
 import pathlib
@@ -14,8 +14,8 @@ CZ_CURRENT_TAG = os.environ['CZ_POST_CURRENT_TAG_VERSION']
 
 
 def update_tag(component:str) -> None:
-    """Annotate release tag"""
-    release_notes_path = str(PROJECT_ROOT / component / 'release_notes.txt')
+    """Annotate release tag with release notes"""
+    release_notes_path = str(PROJECT_ROOT / component / '_release_notes.txt')
     with open(release_notes_path, encoding='utf-8') as fr:
         release_notes = fr.read()
     subprocess.check_call(['git', 'tag', '-a', CZ_CURRENT_TAG, '-m', release_notes, '-f' ],

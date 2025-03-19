@@ -48,6 +48,7 @@ def check_repo() -> None:
             ['git', 'show-ref', '--tags'],
             cwd=PROJECT_ROOT,
         ).decode()
+        print(CZ_OLD_TAG + ' ' + ref_tags)
         assert CZ_OLD_TAG in ref_tags
 
 
