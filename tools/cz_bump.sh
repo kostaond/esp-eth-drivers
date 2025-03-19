@@ -12,6 +12,6 @@ git checkout -b bump/new_version
 # bump new version: https://commitizen-tools.github.io/commitizen/commands/bump/
 cz bump --no-verify $@
 
-git push -u -f --follow-tags \
+git push -u -f --follow-tags --no-verify \
   -o merge_request.create \
   origin bump/new_version

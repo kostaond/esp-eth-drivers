@@ -37,19 +37,23 @@ COMMIT_PATTERN = re.compile(r'^[0-9a-f]{8}')
 
 def check_repo() -> None:
     """Check current ref tag in repository"""
-    if CZ_INITIAL != 'True':
-        subprocess.check_call(
-            ['git', 'fetch', '--prune', '--prune-tags', '--force'],
-            cwd=PROJECT_ROOT,
-        )
+    subprocess.check_call(
+        ['git', 'fetch', '--prune', '--prune-tags', '--force'],
+        cwd=PROJECT_ROOT,
+    )
 
-        # Check old_ref in repository
-        ref_tags = subprocess.check_output(
-            ['git', 'show-ref', '--tags'],
-            cwd=PROJECT_ROOT,
-        ).decode()
-        print(CZ_OLD_TAG + ' ' + ref_tags)
-        assert CZ_OLD_TAG in ref_tags
+    ref_tags = subprocess.check_output(
+        ['git', 'show-ref', '--tags'],
+        cwd=PROJECT_ROOT,
+    ).decode()
+
+     # Check old_ref in repository but only if not initial bump
+    if CZ_INITIAL != 'True' and CZ_OLD_TAG not in ref_tags:
+        raise RuntimeError(f'Previous reference ({CZ_OLD_TAG}) was not found in repo!')
+
+    # Check if new_ref in repository
+    if CZ_NEW_TAG in ref_tags:
+        raise RuntimeError(f'New reference ({CZ_NEW_TAG}) already exists in repo!')
 
 
 def update_changelog(component:str, release_notes:str) -> None:
@@ -76,7 +80,7 @@ def create_release_notes(component:str, release_notes:str) -> None:
     release_notes = re.sub(r'\#\#[\#\s]*(.+)', r'\1', release_notes)
     release_notes = re.sub(r'\n\n', '\n', release_notes)
     # store release notes to temp file to be used later in the process
-    with open(str(PROJECT_ROOT / component / 'release_notes.txt'), 'w', encoding='utf-8') as fw:
+    with open(str(PROJECT_ROOT / component / '_release_notes.txt'), 'w', encoding='utf-8') as fw:
         fw.write(release_notes)
 
 
