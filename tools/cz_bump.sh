@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 if [ $# -eq 0 ]; then
     echo "Please specify version for cz bump, for example:"
