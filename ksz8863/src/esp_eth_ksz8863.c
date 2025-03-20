@@ -18,6 +18,7 @@
 
 static const char *TAG = "ksz8863_eth";
 
+// TODO for release test
 
 struct ksz8863_port_tbl_s {
     esp_eth_handle_t eth_handle;
