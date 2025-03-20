@@ -12,7 +12,8 @@ import sys
 from typing import Dict
 from typing import List
 
-RELEASE_TAG_BASE_URL = 'https://github.com/kostaond/esp-eth-drivers/releases/tag' # TODO change to espressif
+RELEASE_TAG_BASE_URL = 'https://github.com/kostaond/esp-eth-drivers/releases/tag/' # TODO change to espressif
+COMMIT_BASE_URL = 'https://github.com/kostaond/esp-eth-drivers/commit/'
 PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[1]
 CZ_OLD_TAG = os.environ['CZ_PRE_CURRENT_TAG_VERSION']
 CZ_NEW_TAG = os.environ['CZ_PRE_NEW_TAG_VERSION']
@@ -108,10 +109,10 @@ def get_commit_changes(component:str) -> str:
         commit = _commit_match.group(0)
         for match in CHANGELOG_PATTERN.finditer(commit_log):
             if match.group(2) == component:
-                _changelog = f'- {match.group(2)}: {match.group(3)} ([{commit}]({RELEASE_TAG_BASE_URL}{commit}))'
+                _changelog = f'- {match.group(2)}: {match.group(3)} ([{commit}]({COMMIT_BASE_URL}{commit}))'
             else:
                 # TODO commit is not related to the component, expect user action??
-                _changelog = f'- {match.group(3)} ([{commit}]({RELEASE_TAG_BASE_URL}{commit}))'
+                _changelog = f'- {match.group(3)} ([{commit}]({COMMIT_BASE_URL}{commit}))'
             changelogs[CHANGELOG_SECTIONS[match.group(1)]].append(_changelog)
 
     changed = False
@@ -122,7 +123,7 @@ def get_commit_changes(component:str) -> str:
         formatted_changes.insert(0, f'### {key}\n\n' + '\n'.join(values) + '\n\n')
         changed = True
     if changed:
-        formatted_changes.insert(0, f'## [{CZ_NEW_TAG}]({RELEASE_TAG_BASE_URL}/{CZ_NEW_TAG})\n\n')
+        formatted_changes.insert(0, f'## [{CZ_NEW_TAG}]({RELEASE_TAG_BASE_URL}{CZ_NEW_TAG})\n\n')
     else:
         raise RuntimeError('No changes found')
     return ''.join(formatted_changes)
