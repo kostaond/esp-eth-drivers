@@ -1,5 +1,9 @@
 {
     "bootstrap-sha": "90440f7d8d3bc3821af15c3704a24540bfc98e41",
+    "include-component-in-tag": true,
+    "include-v-in-tag": true,
+    "tag-separator": "@",
+    "separate-pull-requests": true,
     "packages": {
         "lan867x": {
           "release-type": "simple"
