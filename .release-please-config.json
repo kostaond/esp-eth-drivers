@@ -1,0 +1,15 @@
+{
+  "bootstrap-sha": "90440f7d8d3bc3821af15c3704a24540bfc98e41",
+  "packages": {
+      "lan867x": {
+        "release-type": "go"
+      },
+      "ksz8863": {
+        "release-type": "go"
+      },
+      "ch390": {
+        "release-type": "go"
+      }
+    }
+    // "plugins": ["node-workspace"]
+  }
