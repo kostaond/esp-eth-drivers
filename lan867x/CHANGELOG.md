@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/kostaond/esp-eth-drivers/compare/lan867x@v1.0.3...lan867x@v1.0.4) (2025-03-21)
+
+
+### Bug Fixes
+
+* **lan867x:** removed TODO testing comment ([8478da3](https://github.com/kostaond/esp-eth-drivers/commit/8478da33ea03eb046fdd67058d133558ca7c8938))
+
 ## [1.0.3](https://github.com/kostaond/esp-eth-drivers/compare/lan867x@v1.0.2...lan867x@v1.0.3) (2025-03-20)
 
 
