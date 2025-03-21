@@ -14,8 +14,6 @@
 
 static const char *TAG = "lan867x";
 
-// TODO for release test
-
 /***************List of Supported Models***************/
 #define LAN867X_MODEL_NUM  0x16
 #define LAN867X_OUI 0xC0001C
