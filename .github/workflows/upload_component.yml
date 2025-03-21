@@ -1,4 +1,4 @@
-name: Push components to https://components.espressif.com
+name: Push components to the Component Registry
 on:
   # For pull requests: perform upload with "--dry-run" argument,
   # i.e. validate that the component passes all checks for being uploaded.
