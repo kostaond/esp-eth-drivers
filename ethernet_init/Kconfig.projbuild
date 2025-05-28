@@ -162,6 +162,11 @@ menu "Ethernet Configuration"
                 help
                     Select external SPI-Ethernet module (ENC28J60).
 
+            config ETHERNET_USE_LAN865X
+                bool "LAN865X Module"
+                help
+                    Select external SPI-Ethernet module (LAN865X).
+
         endchoice
 
         config ETHERNET_SPI_HOST
@@ -370,7 +375,7 @@ menu "Ethernet Configuration"
         endchoice # EXAMPLE_ENC28J60_DUPLEX_MODE
     endif # ETHERNET_SPI_SUPPORT
 
-    if ETHERNET_PHY_LAN867X
+    if ETHERNET_PHY_LAN867X || ETHERNET_USE_LAN865X
         menu "10BASE-T1S PLCA"
             config ETHERNET_USE_PLCA
                 bool "Use PLCA"

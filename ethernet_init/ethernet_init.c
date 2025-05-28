@@ -32,6 +32,11 @@
 #include "esp_eth_enc28j60.h"
 #endif // CONFIG_ETHERNET_USE_ENC28J60
 
+#if CONFIG_ETHERNET_USE_LAN865X
+#include "lan865x.h"
+#include "esp_eth_phy_lan867x.h"
+#endif // CONFIG_ETHERNET_PHY_LAN865X
+
 #if CONFIG_ETHERNET_SPI_NUMBER
 #define SPI_ETHERNETS_NUM           CONFIG_ETHERNET_SPI_NUMBER
 #else
@@ -365,6 +370,14 @@ static esp_eth_handle_t eth_init_spi(spi_eth_module_config_t *spi_eth_module_con
     phy_config.reset_gpio_num = -1; // ENC28J60 doesn't have a pin to reset internal PHY
     dev_out->phy = esp_eth_phy_new_enc28j60(&phy_config);
     sprintf(dev_out->dev_info.name, "ENC28J60");
+#elif CONFIG_ETHERNET_USE_LAN865X
+    eth_lan865x_config_t lan865x_config = ETH_LAN865X_DEFAULT_CONFIG(CONFIG_ETHERNET_SPI_HOST, &spi_devcfg);
+    lan865x_config.int_gpio_num = spi_eth_module_config->int_gpio;
+    //lan865x_config.poll_period_ms = spi_eth_module_config->polling_ms;
+
+    dev_out->mac = esp_eth_mac_new_lan865x(&lan865x_config, &mac_config);
+    dev_out->phy = esp_eth_phy_new_lan867x(&phy_config); // TODO: check if the PHY is really the same
+    sprintf(dev_out->dev_info.name, "LAN865X");
 #endif
     // Init Ethernet driver to default and install it
     esp_eth_handle_t eth_handle = NULL;

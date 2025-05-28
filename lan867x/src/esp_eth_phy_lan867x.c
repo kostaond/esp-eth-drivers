@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2023 Espressif Systems (Shanghai) CO LTD
+ * SPDX-FileCopyrightText: 2023-2025 Espressif Systems (Shanghai) CO LTD
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -15,11 +15,14 @@
 static const char *TAG = "lan867x";
 
 /***************List of Supported Models***************/
-#define LAN867X_MODEL_NUM  0x16
 #define LAN867X_OUI 0xC0001C
+
+#define LAN867X_MODEL_NUM  0x16
+#define LAN865X_MODEL_NUM  0x1B
 
 static const uint8_t supported_models[] = {
     LAN867X_MODEL_NUM,
+    LAN865X_MODEL_NUM,
 };
 
 /***************Vendor Specific Register***************/
@@ -158,6 +161,13 @@ err:
     return ret;
 }
 
+// Software reset of PHY module of LAN865x is not recommended
+static esp_err_t lan865x_reset(esp_eth_phy_t *phy)
+{
+    printf("PHY dummy reset\n");
+    return ESP_OK;
+}
+
 static esp_err_t lan867x_init(esp_eth_phy_t *phy)
 {
     esp_err_t ret = ESP_OK;
@@ -176,6 +186,9 @@ static esp_err_t lan867x_init(esp_eth_phy_t *phy)
     for (unsigned int i = 0; i < sizeof(supported_models); i++) {
         if (model == supported_models[i]) {
             supported_model = true;
+            if (model == LAN865X_MODEL_NUM) {
+                phy_802_3->parent.reset = lan865x_reset;
+            }
             break;
         }
     }
