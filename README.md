@@ -6,7 +6,8 @@ List of currently supported chips:
 
 - [KSZ8863](ksz8863/README.md)
 - [ADIN1200](adin1200/README.md)
-- [LAN867X](lan867x/README.md)
+- [LAN865X](lan86xx/lan865x/README.md)
+- [LAN867X](lan86xx/lan867x/README.md)
 - [CH390](ch390/README.md)
 - [ENC28J60](enc28j60/README.md)
 - [Dummy PHY (EMAC to EMAC)](eth_dummy_phy/README.md)

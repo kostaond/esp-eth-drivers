@@ -84,6 +84,9 @@ void app_main(void)
         ESP_ERROR_CHECK(esp_eth_start(eth_handles[i]));
     }
 
+    uint8_t mac_addr[6] = { 0x01, 0x00, 0x5e, 0x7f, 0xff, 0xfa};
+    esp_eth_ioctl(eth_handles[0], ETH_CMD_ADD_MAC_FILTER, mac_addr);
+
     // Print each device info
     for (int i = 0; i < eth_port_cnt; i++) {
         eth_dev_info_t info = ethernet_init_get_dev_info(eth_handles[i]);

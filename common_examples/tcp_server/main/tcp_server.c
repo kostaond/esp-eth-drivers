@@ -61,6 +61,49 @@ static void start_dhcp_server_after_connection(void *arg, esp_event_base_t base,
 }
 #endif
 
+static void multicast_sender_task(void *pvParameters)
+{
+    int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
+    if (sock < 0) {
+        ESP_LOGE(TAG, "Unable to create socket: errno %d", errno);
+        vTaskDelete(NULL);
+        return;
+    }
+
+    // Set multicast TTL
+    int ttl = 1;
+    setsockopt(sock, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, sizeof(ttl));
+
+    // Set multicast interface
+    struct in_addr if_addr;
+    if_addr.s_addr = inet_addr("192.168.0.1"); // Replace with your interface IP
+    setsockopt(sock, IPPROTO_IP, IP_MULTICAST_IF, &if_addr, sizeof(if_addr));
+
+    // Set up multicast address
+    struct sockaddr_in dest_addr = {
+        .sin_family = AF_INET,
+        .sin_port = htons(12345),
+        .sin_addr.s_addr = inet_addr("239.255.255.250")
+    };
+
+    const char *message = "ESP32 Multicast";
+    const TickType_t xDelay = pdMS_TO_TICKS(2000); // 5 seconds
+
+    while (1) {
+        int err = sendto(sock, message, strlen(message), 0,
+                         (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+        if (err < 0) {
+            ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
+        } else {
+            ESP_LOGI(TAG, "Multicast message sent");
+        }
+        vTaskDelay(xDelay);
+    }
+
+    close(sock);
+    vTaskDelete(NULL);
+}
+
 void app_main(void)
 {
     // Create default event loop that running in background
@@ -152,6 +195,8 @@ void app_main(void)
         ESP_ERROR_CHECK(esp_eth_start(eth_handles[i]));
     }
 #endif
+
+    xTaskCreate(multicast_sender_task, "multicast_sender", 2048, NULL, 5, NULL);
 
     char *rxbuffer = NULL;
     char *txbuffer = NULL;

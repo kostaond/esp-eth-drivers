@@ -1,11 +1,14 @@
 dependencies:
+  idf:
+    version: '>=5.4'
   espressif/lan867x:
     version: '*'
     rules:
-      - if: target in [esp32, esp32p4, esp32s3, esp32s2] # TODO remove
-    override_path: ../lan867x/
-  idf:
-    version: '>=5.4'
+      - if: target in [esp32, esp32p4]
+    override_path: ../lan86xx/lan867x/
+  espressif/lan865x:
+    version: '*'
+    override_path: ../lan86xx/lan865x/
   espressif/ch390:
     version: '*'
     override_path: ../ch390/
