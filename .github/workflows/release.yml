@@ -11,13 +11,12 @@ on:
       - master
 
 env:
-  COMPONENTS: |
+  UPLOAD_COMPONENTS: |
     ksz8863
     adin1200
     lan86xx_common
     lan865x
     lan867x
-    ch390
     enc28j60
     ethernet_init
     eth_dummy_phy
@@ -54,7 +53,7 @@ jobs:
       - name: Upload components to the component registry
         uses: espressif/upload-components-ci-action@v2
         with:
-          components: ${{ env.COMPONENTS }}
+          components: ${{ env.UPLOAD_COMPONENTS }}
           namespace: "espressif"
           api_token: ${{ secrets.IDF_COMPONENT_API_TOKEN }}
           dry_run: true
@@ -74,7 +73,7 @@ jobs:
       - name: Upload components to the component registry
         uses: espressif/upload-components-ci-action@v2
         with:
-          components: ${{ needs.release-please.outputs.paths_released }}
+          components: ${{ join(fromJSON(needs.release-please.outputs.paths_released), '\n') }}
           namespace: "espressif"
           api_token: ${{ secrets.IDF_COMPONENT_API_TOKEN }}
           dry_run: ${{ github.repository_owner != 'espressif' }}
