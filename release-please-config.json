@@ -35,8 +35,8 @@
           "component": "ksz8863",
           "release-type": "go"
         },
-        "lan86xx": {
-          "component": "lan86xx",
+        "lan86xx_common": {
+          "component": "lan86xx_common",
           "release-type": "go"
         },
         "lan865x": {
