@@ -1,0 +1,18 @@
+{
+    "include-component-in-tag": true,
+    "include-v-in-tag": true,
+    "tag-separator": "@",
+    "extra-files": [
+      {
+        "type": "yaml",
+        "path": "idf_component.yml",
+        "jsonpath": "$.version"
+      }
+    ],
+    "packages": {
+        "ethernet_init": {
+          "component": "ethernet_init",
+          "release-type": "go"
+        }
+    }
+}
