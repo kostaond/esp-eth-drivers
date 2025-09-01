@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/kostaond/esp-eth-drivers/compare/lan865x@v0.1.2...lan865x@v0.2.0) (2025-09-01)
+
+
+### Features
+
+* **ci:** added manual release action ([17ce21e](https://github.com/kostaond/esp-eth-drivers/commit/17ce21ee4088a5f91db5c662c99b9ba566426f2d))
+
 ## [0.1.2](https://github.com/espressif/esp-eth-drivers/compare/lan865x@v0.1.1...lan865x@v0.1.2) (2025-08-12)
 
 
