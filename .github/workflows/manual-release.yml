@@ -1,0 +1,86 @@
+name: Manual Release Process
+
+on:
+  workflow_dispatch:
+    inputs:
+      component:
+        description: 'Component to release'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+        - 'all'
+        - 'adin1200'
+        - 'ch390'
+        - 'enc28j60'
+        - 'eth_dummy_phy'
+        - 'ethernet_init'
+        - 'ksz8863'
+        - 'lan86xx_common'
+        - 'lan865x'
+        - 'lan867x'
+      release_type:
+        description: 'Release action to perform'
+        required: true
+        default: 'release-pr'
+        type: choice
+        options:
+        - release-pr
+        - github-release
+        - both
+      target_branch:
+        description: 'Branch to open release PR against'
+        required: false
+        default: 'master'
+
+jobs:
+  manual-release:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for release-please
+
+      - name: Set component path
+        id: set-path
+        run: |
+          if [ "${{ inputs.component }}" = "all" ]; then
+            echo "path=" >> $GITHUB_OUTPUT
+          else
+            echo "path=${{ inputs.component }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release PR
+        if: inputs.release_type == 'release-pr' || inputs.release_type == 'both'
+        id: release-pr
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          skip-github-release: true
+          path: ${{ steps.set-path.outputs.path }}
+          target-branch: ${{ inputs.target_branch }}
+
+      - name: Create GitHub Release
+        if: inputs.release_type == 'github-release' || inputs.release_type == 'both'
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          skip-github-pull-request: true
+          path: ${{ steps.set-path.outputs.path }}
+          target-branch: ${{ inputs.target_branch }}
+
+      - name: Output Results
+        run: |
+          echo "Release PR created: ${{ steps.release-pr.outputs.prs_created }}"
+          echo "Releases created: ${{ steps.release.outputs.releases_created }}"
+          if [ "${{ steps.release-pr.outputs.pr }}" != "null" ]; then
+            echo "PR URL: ${{ fromJSON(steps.release-pr.outputs.pr).html_url }}"
+          fi
+          if [ "${{ steps.release.outputs.paths_released }}" != "[]" ]; then
+            echo "Released components: ${{ steps.release.outputs.paths_released }}"
+          fi
