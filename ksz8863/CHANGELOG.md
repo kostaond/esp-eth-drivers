@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/kostaond/esp-eth-drivers/compare/ksz8863@v0.3.0...ksz8863@v0.4.0) (2025-09-01)
+
+
+### Features
+
+* **ci:** added manual release action ([6ad371b](https://github.com/kostaond/esp-eth-drivers/commit/6ad371bf39a25560f053314000707fc41128c1f1))
+
 ## [0.3.0](https://github.com/kostaond/esp-eth-drivers/compare/ksz8863@v0.2.9...ksz8863@v0.3.0) (2025-08-29)
 
 
