@@ -13,15 +13,49 @@ jobs:
         (github.event.label.name == 'PR-Sync-Rebase')  ||
         (github.event.label.name == 'PR-Sync-Update')
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
+#
+      #- name: Sync approved PRs to internal codebase
+      #  uses: espressif/sync-pr-to-gitlab@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #    GITLAB_URL: ${{ secrets.GITLAB_URL }}
+      #    GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+      #    GIT_CONFIG_NAME: ${{ secrets.GIT_CONFIG_NAME }}
+      #    GIT_CONFIG_EMAIL: ${{ secrets.GIT_CONFIG_EMAIL }}
+      #    JIRA_PROJECT: IDFGH
+      #    GITLAB_NAMESPACE: ondrej.kosta
 
-      - name: Sync approved PRs to internal codebase
-        uses: espressif/sync-pr-to-gitlab@v1
+      # Since we use FF merge strategy, we need to lock Gitlab master branch during the release
+      # to ensure that SHA of the release commit from Gitlab matches with the SHA of release PR.
+      # && success()
+      - name: Lock Gitlab master
+        if: contains(github.event.pull_request.title, 'chore(master):')
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLAB_URL: ${{ secrets.GITLAB_URL }}
-          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
-          GIT_CONFIG_NAME: ${{ secrets.GIT_CONFIG_NAME }}
-          GIT_CONFIG_EMAIL: ${{ secrets.GIT_CONFIG_EMAIL }}
-          JIRA_PROJECT: IDFGH
-          GITLAB_NAMESPACE: ondrej.kosta
+          GITLAB_NAMESPACE: ${{ secrets.GITLAB_NAMESPACE }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            echo "Locking Gitlab master branch"
+
+            # Access levels
+            # NO_ACCESS=0
+            # DEVELOPER_ROLE=30
+            # MAINTAINER_ROLE=40
+            # ADMINISTRATOR=60
+
+            # First unprotect the branch
+            curl --header "PRIVATE-TOKEN: $GITHUB_TOKEN" \
+              --request DELETE \
+              "$GITLAB_URL/api/v4/projects/$GITLAB_NAMESPACE/protected_branches/master"
+
+            # Then protect master branch
+            curl --header "PRIVATE-TOKEN: $GITHUB_TOKEN" \
+              --request POST \
+              --header "Content-Type: application/json" \
+              --data '{
+                "name": "master",
+                "push_access_level": 0,
+                "merge_access_level": 0
+              }' \
+              "$GITLAB_URL/api/v4/projects/$GITLAB_NAMESPACE/protected_branches"
