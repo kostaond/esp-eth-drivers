@@ -17,7 +17,7 @@ push_master_to_github:
     - base64 --decode --ignore-garbage ~/.ssh/id_rsa_base64 > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - git remote add github git@github.com:espressif/esp-eth-drivers.git
+    - git remote add github git@github.com:kostaond/esp-eth-drivers.git
     - git push github ${CI_COMMIT_SHA}:refs/heads/${CI_COMMIT_REF_NAME}
 
 # Since we use FF merge strategy, we needed to lock Gitlab master branch during the release
@@ -33,7 +33,7 @@ set_branch_protection:
   image: "${CI_DOCKER_REGISTRY}/esp-env-v6.0:2"
   variables:
     GIT_DEPTH: 0
-    GITLAB_URL: https://${GITLAB_HTTPS_SERVER}
+    GITLAB_URL: https://${CI_SERVER_FQDN}
     GITLAB_TOKEN: $GITLAB_TOKEN
   script:
     # Set so developers can merge
