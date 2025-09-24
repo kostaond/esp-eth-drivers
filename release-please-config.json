@@ -8,7 +8,7 @@
         "type": "yaml",
         "path": "idf_component.yml",
         "jsonpath": "$.version",
-        "version-pattern": "\'${version}\'"
+        "version-pattern": "\\'${version}\\'"
       }
     ],
     "packages": {
