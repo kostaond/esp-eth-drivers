@@ -7,8 +7,7 @@
       {
         "type": "yaml",
         "path": "idf_component.yml",
-        "jsonpath": "$.version",
-        "version-pattern": "\\'${version}\\'"
+        "jsonpath": "$.version"
       }
     ],
     "packages": {
@@ -46,6 +45,14 @@
         },
         "lan865x": {
           "component": "lan865x",
+          "release-type": "go"
+        },
+        "dm9051": {
+          "component": "dm9051",
+          "release-type": "go"
+        },
+        "dp83848": {
+          "component": "dp83848",
           "release-type": "go"
         }
     }
