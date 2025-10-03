@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/kostaond/esp-eth-drivers/compare/enc28j60@v1.1.0...enc28j60@v1.1.1) (2025-10-03)
+
+
+### Bug Fixes
+
+* **enc28j60:** workflow test text removed ([d2e1e3b](https://github.com/kostaond/esp-eth-drivers/commit/d2e1e3bb060ee34cc075fd09d72a99d268bda197))
+
 ## [1.1.0](https://github.com/kostaond/esp-eth-drivers/compare/enc28j60@v1.0.1...enc28j60@v1.1.0) (2025-09-08)
 
 
