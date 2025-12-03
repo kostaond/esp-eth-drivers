@@ -1,83 +1,91 @@
 {
-    "include-component-in-tag": true,
-    "separate-pull-requests": true,
-    "include-v-in-tag": true,
-    "tag-separator": "@",
-    "extra-files": [
-      {
-        "type": "yaml",
-        "path": "idf_component.yml",
-        "jsonpath": "$.version"
-      }
-    ],
-    "packages": {
-        "adin1200": {
-          "component": "adin1200",
-          "release-type": "go"
-        },
-        "ch390": {
-          "component": "ch390",
-          "release-type": "go"
-        },
-        "dm9051": {
-          "component": "dm9051",
-          "release-type": "go"
-        },
-        "dp83848": {
-          "component": "dp83848",
-          "release-type": "go"
-        },
-        "enc28j60": {
-          "component": "enc28j60",
-          "release-type": "go"
-        },
-        "eth_dummy_phy": {
-          "component": "eth_dummy_phy",
-          "release-type": "go"
-        },
-        "ethernet_init": {
-          "component": "ethernet_init",
-          "release-type": "go"
-        },
-        "ip101": {
-          "component": "ip101",
-          "release-type": "go"
-        },
-        "ksz80xx": {
-          "component": "ksz80xx",
-          "release-type": "go"
-        },
-        "ksz8851snl": {
-          "component": "ksz8851snl",
-          "release-type": "go"
-        },
-        "ksz8863": {
-          "component": "ksz8863",
-          "release-type": "go"
-        },
-        "lan865x": {
-          "component": "lan865x",
-          "release-type": "go"
-        },
-        "lan867x": {
-          "component": "lan867x",
-          "release-type": "go"
-        },
-        "lan86xx_common": {
-          "component": "lan86xx_common",
-          "release-type": "go"
-        },
-        "lan87xx": {
-          "component": "lan87xx",
-          "release-type": "go"
-        },
-        "rtl8201": {
-          "component": "rtl8201",
-          "release-type": "go"
-        },
-        "w5500": {
-          "component": "w5500",
-          "release-type": "go"
-        }
+  "include-component-in-tag": true,
+  "separate-pull-requests": true,
+  "include-v-in-tag": true,
+  "tag-separator": "@",
+  "extra-files": [
+    {
+      "type": "yaml",
+      "path": "idf_component.yml",
+      "jsonpath": "$.version"
     }
+  ],
+  "packages": {
+      "adin1200": {
+        "component": "adin1200",
+        "release-type": "go"
+
+      },
+      "ch390": {
+        "component": "ch390",
+        "release-type": "go"
+      },
+      "dm9051": {
+        "component": "dm9051",
+        "release-type": "go"
+      },
+      "dp83848": {
+        "component": "dp83848",
+        "release-type": "go"
+      },
+      "enc28j60": {
+        "component": "enc28j60",
+        "release-type": "go"
+      },
+      "eth_dummy_phy": {
+        "component": "eth_dummy_phy",
+        "release-type": "go"
+      },
+      "ethernet_init": {
+        "component": "ethernet_init",
+        "release-type": "go",
+        "extra-files": [
+          {
+            "type": "yaml",
+            "path": "idf_component.yml",
+            "jsonpath": "$.version"
+          }
+        ]
+      },
+      "ip101": {
+        "component": "ip101",
+        "release-type": "go"
+      },
+      "ksz80xx": {
+        "component": "ksz80xx",
+        "release-type": "go"
+      },
+      "ksz8851snl": {
+        "component": "ksz8851snl",
+        "release-type": "go"
+      },
+      "ksz8863": {
+        "component": "ksz8863",
+        "release-type": "go"
+      },
+      "lan865x": {
+        "component": "lan865x",
+        "release-type": "go"
+      },
+      "lan867x": {
+        "component": "lan867x",
+        "release-type": "go"
+      },
+      "lan86xx_common": {
+        "component": "lan86xx_common",
+        "release-type": "go"
+      },
+      "lan87xx": {
+        "component": "lan87xx",
+        "release-type": "go"
+      },
+      "rtl8201": {
+        "component": "rtl8201",
+        "release-type": "go"
+      },
+      "w5500": {
+        "component": "w5500",
+        "release-type": "go"
+      }
+  }
 }

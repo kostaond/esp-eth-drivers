@@ -1,4 +1,4 @@
 dependencies:
   espressif/ethernet_init:
-    override_path: '../../../ethernet_init'
+    version: "^1.2.0"
   espressif/iperf-cmd: "^0.1.1"
